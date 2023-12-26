@@ -72,7 +72,12 @@ const Header = () => {
       <TransitionGroup component={null}>
         {isMounted && (
           <CSSTransition classNames="fadeup" timeout={1000}>
-            <div style={{ transitionDelay: `100ms`, color: dark ? "#ccd6f6" : "#696969" }}>
+            <div
+              style={{
+                transitionDelay: `100ms`,
+                color: dark ? "#ccd6f6" : "#696969",
+              }}
+            >
               <h1>Hi, my name is</h1>
             </div>
           </CSSTransition>
@@ -93,10 +98,16 @@ const Header = () => {
         )}
         {isMounted && (
           <CSSTransition classNames="fadeup" timeout={1000}>
-            <div style={{ transitionDelay: `400ms`, color: dark ? "#ccd6f6" : "#696969" }}>
+            <div
+              style={{
+                transitionDelay: `400ms`,
+                color: dark ? "#ccd6f6" : "#696969",
+              }}
+            >
               <p>
-                I’m a front end developer with 2 years of experience in blending the art of design with skill of
-                programming to deliver an immersive and engaging user experience 👨‍💻.
+                I’m a front end developer with 3+ years of experience in
+                blending the art of design with skill of programming to deliver
+                an immersive and engaging user experience 👨‍💻.
               </p>
             </div>
           </CSSTransition>

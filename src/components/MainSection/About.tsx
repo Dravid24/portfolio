@@ -150,6 +150,16 @@ const StyledTechList = styled.div`
 `;
 
 const About = () => {
+  const techKnown = [
+    "Javascript",
+    "Typescript",
+    "React JS",
+    "Node JS",
+    "Redux/Context",
+    "Jest/RTL Testing",
+    "Next JS",
+    "PostgreSQL",
+  ];
   return (
     <StyledAboutSection id="about">
       <h1 className="heading">About Me</h1>
@@ -160,40 +170,25 @@ const About = () => {
           <img className="img" src="/dravid.jpeg" alt="img" />
         </StyledImg>
         <StyledAbout>
-          <h1>
+          <h1 data-testid='header-element'>
             Hello! I'm <span className="name">Dravid</span>
           </h1>
           <p>
-            Creative Front-End developer offering 2 years of experience. Skilled in designing, developing and testing
-            multiple web-based applications incorporating a range of technologies. Very passionate about aesthetics and
-            UI development.
+            Creative Front-End developer offering 3+ years of experience.
+            Skilled in designing, developing and testing multiple web-based
+            applications incorporating a range of technologies. Very passionate
+            about aesthetics and UI development.
           </p>
           <p>Here are a few technologies I’ve been working with recently 👇</p>
           <StyledTechList>
-            <h2>
-              <CheckCircleIcon />
-              Javascript
-            </h2>
-            <h2>
-              <CheckCircleIcon />
-              Typescript
-            </h2>
-            <h2>
-              <CheckCircleIcon />
-              React JS
-            </h2>
-            <h2>
-              <CheckCircleIcon />
-              Next JS
-            </h2>
-            <h2>
-              <CheckCircleIcon />
-              Redux/Context
-            </h2>
-            <h2>
-              <CheckCircleIcon />
-              Jest/RTL Testing
-            </h2>
+            {techKnown.map((tech) => {
+              return (
+                <h2>
+                  <CheckCircleIcon />
+                  {tech}
+                </h2>
+              );
+            })}
           </StyledTechList>
         </StyledAbout>
       </div>

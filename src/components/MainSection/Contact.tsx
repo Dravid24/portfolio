@@ -73,20 +73,29 @@ const Contact = () => {
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    emailjs.sendForm("service_vtk34se", "template_0kgvdop", e.currentTarget, "McL7nW3QbA5rQT1j5").then(
-      (result) => {
-        setSuccessMsg("Email sent successfully");
-        setTimeout(() => {
-          setSuccessMsg(null);
-        }, 3000);
-      },
-      (error) => {
-        setErrorMsg("Something went wrong");
-        setTimeout(() => {
-          setErrorMsg(null);
-        }, 3000);
-      }
-    );
+    emailjs
+      .sendForm(
+        "service_vtk34se",
+        "template_0kgvdop",
+        e.currentTarget,
+        "mCAQ6m3v4-cxm-FkZ"
+      )
+      .then(
+        (result) => {
+          setLoading(false);
+          setSuccessMsg("Email sent successfully");
+          setTimeout(() => {
+            setSuccessMsg(null);
+          }, 3000);
+        },
+        (error) => {
+          setLoading(false);
+          setErrorMsg("Something went wrong");
+          setTimeout(() => {
+            setErrorMsg(null);
+          }, 3000);
+        }
+      );
   };
 
   const validate = (values: MessageFormProps) => {
@@ -99,7 +108,9 @@ const Contact = () => {
       errors.fullname = "Name is required";
     } else if (!values.email) {
       errors.email = "Email is required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
       errors.email = "Enter valid email address";
     } else if (!values.message) {
       errors.message = "Message is required";
@@ -112,8 +123,8 @@ const Contact = () => {
       <h1 className="heading">Get In Touch</h1>
       <div style={{ color: dark ? "#ccd6f6" : "#696969", textAlign: "center" }}>
         <p>
-          My inbox is always open. Whether you have a question or just want to say hi, I’ll try my best to get back to
-          you!
+          My inbox is always open. Whether you have a question or just want to
+          say hi, I’ll try my best to get back to you!
         </p>
       </div>
       <Formik
@@ -133,7 +144,14 @@ const Contact = () => {
           })
         }
       >
-        {({ handleSubmit, handleChange, handleBlur, values, errors, touched }) => (
+        {({
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          values,
+          errors,
+          touched,
+        }) => (
           <form
             className="message-form"
             onSubmit={(e) => {
@@ -173,12 +191,24 @@ const Contact = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {touched.fullname && errors.fullname && <Alert severity="error">{errors.fullname}</Alert>}
-            {touched.email && errors.email && <Alert severity="error">{errors.email}</Alert>}
-            {touched.message && errors.message && <Alert severity="error">{errors.message}</Alert>}
+            {touched.fullname && errors.fullname && (
+              <Alert severity="error">{errors.fullname}</Alert>
+            )}
+            {touched.email && errors.email && (
+              <Alert severity="error">{errors.email}</Alert>
+            )}
+            {touched.message && errors.message && (
+              <Alert severity="error">{errors.message}</Alert>
+            )}
             {successMsg && <Alert severity="success">{successMsg}</Alert>}
             {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
-            <Button variant="contained" size="large" className="form-btn" type="submit" disabled={loading}>
+            <Button
+              variant="contained"
+              size="large"
+              className="form-btn"
+              type="submit"
+              disabled={loading}
+            >
               Send Message
             </Button>
           </form>
