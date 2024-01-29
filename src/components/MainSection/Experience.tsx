@@ -91,6 +91,16 @@ const StyledExperience = styled.div`
   }
 `;
 
+const infosysTech = [
+  "React Js",
+  "Bootstrap",
+  "Node Js",
+  "PostgreSQL",
+  "Jest/RTL",
+];
+
+const kloudOneTech = ["React Js", "Ant Design", "Gatsby", "Keycloak"];
+
 const Experience = () => {
   const theme = useTheme();
   return (
@@ -99,17 +109,28 @@ const Experience = () => {
       <StyledExperience>
         <div className="exp-length"></div>
         <div>
-          <h1>Associate Bussiness Analyst</h1>
-          <h2 style={{ color: theme.palette.mode === "dark" ? "#c7c7c7" : "#696969" }}>Infosys (Mar-2022 -Present)</h2>
+          <h1>Associate Consultant</h1>
+          <h2
+            style={{
+              color: theme.palette.mode === "dark" ? "#c7c7c7" : "#696969",
+            }}
+          >
+            Infosys (Mar-2022 -Present)
+          </h2>
           <p>
-            Worked closely with designers and management team to develop, document, and manage the web application using
-            Reactjs and Bootstrap.
+            Collaborated with the development team to develop a responsive web
+            application using React Js and Bootstrap. Contributed significantly
+            by implementing unit testcases using Jest/RTL for ensuring code
+            reliability.
           </p>
-          <p>Developed and shipped highly interactive web applications.</p>
+          <p>
+            Developed REST API and configured a cron job in NodeJs to automate
+            the periodic synchorization of data.
+          </p>
           <Stack direction="row" spacing={1} style={{ flexWrap: "wrap" }}>
-            <Chip label="React Js" color="primary" size="small" className="tag" />
-            <Chip label="NextJS" color="primary" size="small" className="tag" />
-            <Chip label="Bootstrap" color="primary" size="small" className="tag" />
+            {infosysTech.map((tech) => (
+              <Chip label={tech} color="primary" size="small" className="tag" />
+            ))}
           </Stack>
         </div>
       </StyledExperience>
@@ -117,22 +138,26 @@ const Experience = () => {
         <div className="exp-length"></div>
         <div>
           <h1>Software developer UX </h1>
-          <h2 style={{ color: theme.palette.mode === "dark" ? "#c7c7c7" : "#696969" }}>
+          <h2
+            style={{
+              color: theme.palette.mode === "dark" ? "#c7c7c7" : "#696969",
+            }}
+          >
             Kloudone technology (Oct 2020 - Mar 2022)
           </h2>
           <p>
-            Developed and maintained code for in-house Learning Management system product (KloudLearn) with technologies
-            including ReactJs and AntDesign.
+            Developed and maintained code for in-house Learning Management
+            system product (KloudLearn) with technologies including ReactJs and
+            AntDesign.
           </p>
           <p>
-            Manually tested sites in various browsers and mobile devices to ensure cross-browser compatibility and
-            responsiveness.
+            Manually tested sites in various browsers and mobile devices to
+            ensure cross-browser compatibility and responsiveness.
           </p>
           <Stack direction="row" spacing={1} style={{ flexWrap: "wrap" }}>
-            <Chip label="React Js" color="primary" size="small" className="tag" />
-            <Chip label="Ant Design" color="primary" size="small" className="tag" />
-            <Chip label="Gatsby" color="primary" size="small" className="tag" />
-            <Chip label="Keycloak" color="primary" size="small" className="tag" />
+            {kloudOneTech.map((tech) => (
+              <Chip label={tech} color="primary" size="small" className="tag" />
+            ))}
           </Stack>
         </div>
       </StyledExperience>
