@@ -70,7 +70,7 @@ const Contact = () => {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = (e: React.FormEvent<HTMLFormElement>, resetForm: any) => {
     e.preventDefault();
     setLoading(true);
     emailjs
@@ -81,14 +81,15 @@ const Contact = () => {
         "mCAQ6m3v4-cxm-FkZ"
       )
       .then(
-        (result) => {
+        () => {
           setLoading(false);
+          resetForm();
           setSuccessMsg("Email sent successfully");
           setTimeout(() => {
             setSuccessMsg(null);
           }, 3000);
         },
-        (error) => {
+        () => {
           setLoading(false);
           setErrorMsg("Something went wrong");
           setTimeout(() => {
@@ -151,11 +152,12 @@ const Contact = () => {
           values,
           errors,
           touched,
+          resetForm,
         }) => (
           <form
             className="message-form"
             onSubmit={(e) => {
-              submitForm(e);
+              submitForm(e, resetForm);
               handleSubmit();
             }}
           >
