@@ -115,7 +115,7 @@ const Header = () => {
         {isMounted && (
           <CSSTransition classNames="fadeup" timeout={1000}>
             <div style={{ transitionDelay: `500ms`, marginTop: "30px" }}>
-              <Link to="/resume.pdf" target="_blank" download>
+              <Link to="/Dravid_Resume.pdf" target="_blank" download>
                 <Button variant="contained" size="large">
                   Download CV
                 </Button>
