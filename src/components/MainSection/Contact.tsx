@@ -71,7 +71,6 @@ const Contact = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>, resetForm: any) => {
-    e.preventDefault();
     setLoading(true);
     emailjs
       .sendForm(
@@ -157,8 +156,11 @@ const Contact = () => {
           <form
             className="message-form"
             onSubmit={(e) => {
-              submitForm(e, resetForm);
-              handleSubmit();
+              e.preventDefault();
+              if (values.email && values.fullname && values.message) {
+                submitForm(e, resetForm);
+                handleSubmit();
+              }
             }}
           >
             <TextField

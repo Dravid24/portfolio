@@ -21,13 +21,21 @@ export const navLinks = [
 
 export const projectList = [
   {
-    coverImg: "./hulu-app.png",
-    title: "Hulu Movie App",
+    coverImg: "./chat.jpg",
+    title: "ChatHub Connect",
     description:
-      "A hulu app built on NextJs, This hulu app shows categories of movies listed and show the particular movie details etc,.",
-    tech: ["NextJs", "Tailwind CSS", "javascript"],
-    sourceLink: "https://github.com/Dravid24/hulu-movie-app",
-    demoLink: "https://hulu-app-dravid.netlify.app/",
+      "Developed a real-time chat application with features including authentication, authorization, single chat, group chat, user search, and notifications.",
+    tech: [
+      "ReactJs",
+      "NodeJs",
+      "Express",
+      "MongoDB",
+      "Socket.IO",
+      "JWT",
+      "Chakra UI",
+    ],
+    sourceLink: "https://github.com/Dravid24/chathub-connect",
+    demoLink: "https://chathub-connect.onrender.com/",
   },
   {
     coverImg: "./github.png",
@@ -37,6 +45,15 @@ export const projectList = [
     tech: ["ReactJs", "Tailwind CSS"],
     sourceLink: "https://github.com/Dravid24/github-finder",
     demoLink: "https://github-search-dravid.netlify.app/",
+  },
+  {
+    coverImg: "./hulu-app.png",
+    title: "Hulu Movie App",
+    description:
+      "A hulu app built on NextJs, This hulu app shows categories of movies listed and show the particular movie details etc,.",
+    tech: ["NextJs", "Tailwind CSS", "javascript"],
+    sourceLink: "https://github.com/Dravid24/hulu-movie-app",
+    demoLink: "https://hulu-app-dravid.netlify.app/",
   },
   {
     coverImg: "./superhero.png",
@@ -59,19 +76,19 @@ export const projectList = [
   {
     coverImg: "./weather.png",
     title: "Weather App",
-    description: "Weather app is shows current weather of that particular city, Find any city weather in single click",
+    description:
+      "Weather app is shows current weather of that particular city, Find any city weather in single click",
     tech: ["ReactJs"],
     sourceLink: "https://github.com/Dravid24/weather-app",
     demoLink: "https://dravid-weather-app.netlify.app/",
   },
-
-  {
-    coverImg: "./messenger.png",
-    title: "Messenger clone",
-    description:
-      "A messeger clone app built on Reactjs and firebase. Its like group messenger, Adding friend to that group and chat with your friends",
-    tech: ["ReactJs", "Firebase", "Bootstrap"],
-    sourceLink: "https://github.com/Dravid24/Messenger-clone",
-    demoLink: "https://dravid-messenger.netlify.app/",
-  },
+  // {
+  //   coverImg: "./messenger.png",
+  //   title: "Messenger clone",
+  //   description:
+  //     "A messeger clone app built on Reactjs and firebase. Its like group messenger, Adding friend to that group and chat with your friends",
+  //   tech: ["ReactJs", "Firebase", "Bootstrap"],
+  //   sourceLink: "https://github.com/Dravid24/Messenger-clone",
+  //   demoLink: "https://dravid-messenger.netlify.app/",
+  // },
 ];

@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, CardActions, Card, CardContent, CardMedia, Tooltip, useTheme } from "@mui/material";
+import {
+  CardActionArea,
+  CardActions,
+  Card,
+  CardContent,
+  CardMedia,
+  Tooltip,
+  useTheme,
+} from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import { projectList } from "../../common";
@@ -111,8 +119,14 @@ const Projects = () => {
       <ul className="projects-grid">
         {projectList?.map((project, i) => (
           <StyledProject key={i}>
-            <Card sx={{ maxWidth: 300 }} style={{ background: theme.palette.mode === "dark" ? "#112240" : "#fcfcfc" }}>
-              <CardActionArea>
+            <Card
+              sx={{ maxWidth: 300 }}
+              style={{
+                background:
+                  theme.palette.mode === "dark" ? "#112240" : "#fcfcfc",
+              }}
+            >
+              <CardActionArea style={{ cursor: "default" }}>
                 <CardMedia
                   component="img"
                   height="180"
@@ -124,21 +138,21 @@ const Projects = () => {
                   <Typography gutterBottom variant="h5" component="div">
                     {project.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" className="description">
-                    {project.description}
-                  </Typography>
+                  <Tooltip title={project.description} placement="top">
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      className="description"
+                    >
+                      {project.description}
+                    </Typography>
+                  </Tooltip>
                 </CardContent>
                 <div className="tag">
                   {project?.tech.map((tech) => {
                     return <p>{tech}</p>;
                   })}
                 </div>
-
-                {/* <Stack direction="row" spacing={1} style={{ flexWrap: "wrap", paddingLeft: "16px" }}>
-                  {project?.tech.map((tech) => {
-                    return <Chip label={tech} color="primary" size="small" className="tag" />;
-                  })}
-                </Stack> */}
               </CardActionArea>
               <CardActions className="project-action">
                 <Tooltip title="Github" placement="top">
