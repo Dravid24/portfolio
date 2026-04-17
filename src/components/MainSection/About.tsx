@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useTheme } from "@mui/material";
 
 const StyledAboutSection = styled.section`
-  max-width: 1080px;
+  max-width: 1280px;
   margin-bottom: 50px;
+
   .innerContent {
     display: grid;
     grid-template-columns: 2fr 3fr;
     grid-gap: 50px;
+
     @media (max-width: 768px) {
       display: block;
       margin: 20px 0;
@@ -30,12 +32,7 @@ const StyledAboutSection = styled.section`
       height: 2px;
       margin-left: 20px;
       background: #969493;
-      @media (max-width: 1080px) {
-        width: 100%;
-      }
-      @media (max-width: 768px) {
-        width: 100%;
-      }
+
       @media (max-width: 600px) {
         margin-left: 10px;
       }
@@ -44,152 +41,167 @@ const StyledAboutSection = styled.section`
 `;
 
 const StyledImg = styled.div`
-  text-align: center;
-  margin: 2em 0;
-  opacity: 0.9;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &:hover {
-    opacity: 1;
-  }
-  @media (max-width: 768px) {
-    margin: 1em 0;
-  }
-  .card1 {
-    background: #c8cbcc;
-    opacity: 0.5;
-    display: inline-block;
-    height: 350px;
-    margin: -1em;
+  .blob {
     position: absolute;
-    width: 300px;
-    border-radius: 5px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.7;
+    z-index: 0;
+  }
 
-    @media (max-width: 768px) {
-      height: 250px;
-      margin: -0.5em;
-      width: 200px;
+  .blob1 {
+    background: #7f5af0;
+    top: 10%;
+    left: 20%;
+    animation: move1 10s infinite alternate ease-in-out;
+  }
+
+  .blob2 {
+    background: #2dd4bf;
+    top: 20%;
+    left: 20%;
+    animation: move2 12s infinite alternate ease-in-out;
+  }
+
+  .blob3 {
+    background: #3b82f6;
+    top: 60%;
+    left: 15%;
+    animation: move3 14s infinite alternate ease-in-out;
+  }
+
+  @keyframes move1 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(60px, 40px);
     }
   }
-  .card2 {
-    background: #c8cbcc;
-    opacity: 0.5;
-    display: inline-block;
-    height: 350px;
-    margin: -2em;
-    position: absolute;
-    width: 300px;
-    border-radius: 5px;
 
-    @media (max-width: 768px) {
-      height: 250px;
-      margin: -1em;
-      width: 200px;
+  @keyframes move2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-50px, 30px);
+    }
+  }
+
+  @keyframes move3 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(30px, -50px);
     }
   }
 
   .img {
     position: relative;
-    border-radius: 5px;
-    align-self: center;
-    height: 350px;
+    z-index: 2;
     width: 300px;
+    height: 460px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px) scale(1.02);
+    }
 
     @media (max-width: 768px) {
-      height: 250px;
-
-      width: 200px;
+      width: 300px;
+      height: 440px;
     }
   }
 `;
 
 const StyledAbout = styled.div`
   h1 {
-    margin: 0 0 15px 4px;
-    font-weight: 400;
-    font-size: clamp(25px, 5vw, 45px);
-    @media (max-width: 480px) {
-      margin: 0 0 7px 2px;
-    }
+    font-size: clamp(15px, 5vw, 30px);
+    font-family: "Outfit", "sans-serif";
+    margin-top: 10px;
+    font-weight: 600;
 
-    .name {
-      font-weight: 400;
-      font-family: "Calistoga", cursive;
-      letter-spacing: 3px;
+    span {
       background: -webkit-linear-gradient(left, #3b82f6, #2dd4bf);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
   }
+
   p {
-    margin: 20px 0;
-    font-size: clamp(14px, 5vw, 20px);
-  }
-`;
-
-const StyledTechList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(140px, 200px));
-  gap: 0px 10px;
-  padding: 0px;
-  margin: 20px 0px 0px;
-  overflow: hidden;
-  list-style: none;
-
-  svg {
-    color: #3b82f6;
-    margin: 0 10px -5px 0;
-  }
-
-  h2 {
-    display: flex;
-    font-size: clamp(14px, 4vw, 20px);
-    flex-wrao: no-wrap;
-    margin: 15px 0px 0px;
-    font-weight: 400;
+    margin-top: 20px;
+    font-weight: 300;
+    font-size: clamp(13px, 5vw, 20px);
   }
 `;
 
 const About = () => {
-  const techKnown = [
-    "Javascript",
-    "Typescript",
-    "React JS",
-    "Node JS",
-    "Redux/Context",
-    "Jest/RTL Testing",
-    "Next JS",
-    "PostgreSQL",
-  ];
+  const theme = useTheme();
+  const dark = theme.palette.mode === "dark";
+
   return (
     <StyledAboutSection id="about">
       <h1 className="heading">About Me</h1>
+
       <div className="innerContent">
         <StyledImg>
-          <div className="card1"></div>
-          <div className="card2"></div>
-          <img className="img" src="/dravid.jpeg" alt="img" />
+          <div className="blob blob1"></div>
+          <div className="blob blob2"></div>
+          <div className="blob blob3"></div>
+
+          <img
+            className="img"
+            src="/dravid.png"
+            alt="Dravid"
+            data-aos="flip-left"
+          />
         </StyledImg>
         <StyledAbout>
-          <h1 data-testid='header-element'>
-            Hello! I'm <span className="name">Dravid</span>
+          <h1 data-aos="fade-up" data-aos-delay="200">
+            Passionate about building <span>Scalable & High-Performance</span>{" "}
+            web applications
           </h1>
-          <p>
-            Creative Front-End developer offering 3+ years of experience.
-            Skilled in designing, developing and testing multiple web-based
-            applications incorporating a range of technologies. Very passionate
-            about aesthetics and UI development.
-          </p>
-          <p>Here are a few technologies I’ve been working with recently 👇</p>
-          <StyledTechList>
-            {techKnown.map((tech) => {
-              return (
-                <h2>
-                  <CheckCircleIcon />
-                  {tech}
-                </h2>
-              );
-            })}
-          </StyledTechList>
+
+          <div
+            data-aos="fade-up"
+            data-aos-delay="300"
+            style={{
+              color: dark ? "#94a3b8" : "#696969",
+            }}
+          >
+            <p>
+              I’m a Frontend Engineer with 5+ years of experience building
+              scalable and high-performance web applications using React.js,
+              JavaScript, and TypeScript. I focus on creating clean,
+              maintainable code and delivering intuitive user experiences that
+              scale with real-world demands.
+            </p>
+
+            <p>
+              At Accenture, I work on enterprise-grade applications where
+              performance, reliability, and usability are critical. I design
+              reusable component systems, handle complex data-driven interfaces,
+              and optimize rendering to ensure smooth and efficient user
+              interactions.
+            </p>
+
+            <p>
+              I’m passionate about frontend system design and building
+              production-ready applications with a strong emphasis on
+              scalability and performance. I continuously refine my approach to
+              writing efficient code and aim to contribute to product-driven
+              teams solving meaningful problems at scale.
+            </p>
+          </div>
         </StyledAbout>
       </div>
     </StyledAboutSection>

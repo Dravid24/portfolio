@@ -56,6 +56,7 @@ const ButtonContainer = styled.div`
   button {
     padding: 8px 2.5rem;
     border-radius: 9px;
+    font-size: clamp(13px, 5vw, 17px);
     &:hover {
       transform: translateY(-2px);
       transition: all 0.4s;
@@ -111,12 +112,22 @@ const Header = () => {
       </div>
       <ButtonContainer data-aos="fade-up" data-aos-delay="800">
         <HashLink to="#projects" smooth>
-          <Button variant="contained" size="large" startIcon={<Code2 />}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ textTransform: "none" }}
+            startIcon={<Code2 />}
+          >
             View My Work
           </Button>
         </HashLink>
         <Link to="/Dravid_Resume.pdf" target="_blank" download>
-          <Button variant="outlined" size="large" startIcon={<Download />}>
+          <Button
+            variant="outlined"
+            size="large"
+            sx={{ textTransform: "none" }}
+            startIcon={<Download />}
+          >
             Resume
           </Button>
         </Link>
