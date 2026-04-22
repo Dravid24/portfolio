@@ -4,6 +4,7 @@ import Contact from "./Contact";
 import Experience from "./Experience";
 import Header from "./Header";
 import Projects from "./Projects";
+import TechStack from "./TechStack";
 
 const SectionWrapper = styled.div`
   padding: 0px 150px;
@@ -23,6 +24,7 @@ const Section = () => {
     <SectionWrapper>
       <Header />
       <About />
+      <TechStack />
       <Experience />
       <Projects />
       <Contact />

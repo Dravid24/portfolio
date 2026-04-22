@@ -1,16 +1,25 @@
 import styled from "styled-components";
 import { useTheme, Stack, Chip } from "@mui/material";
+import BusinessIcon from "@mui/icons-material/Business";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const StyledExpSection = styled.section`
-  max-width: 1080px;
+  max-width: 1280px;
   margin-bottom: 50px;
+
   .heading {
     display: flex;
     align-items: center;
     padding: 70px 0 80px;
-    width: 100%;
     font-size: clamp(26px, 5vw, 36px);
     white-space: nowrap;
+
+    span {
+      background: -webkit-linear-gradient(left, #3b82f6, #2dd4bf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
     &:after {
       content: "";
@@ -19,45 +28,30 @@ const StyledExpSection = styled.section`
       height: 2px;
       margin-left: 20px;
       background: #969493;
-      @media (max-width: 1080px) {
-        width: 100%;
-      }
-      @media (max-width: 768px) {
-        width: 100%;
-      }
-      @media (max-width: 600px) {
-        margin-left: 10px;
-      }
     }
   }
 
   .exp-length {
-    background: #3b82f6;
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
 
-    &:after {
-      content: "";
-      display: block;
-      width: 2px;
-      height: 185px;
+    .icon {
       background: #3b82f6;
-      margin: 20px 0 0 9px;
-      @media (max-width: 1080px) {
-        height: 185px;
-      }
-      @media (max-width: 768px) {
-        height: 190px;
-      }
-      @media (max-width: 600px) {
-        height: 200px;
-      }
-      @media (max-width: 450px) {
-        height: 250px;
-      }
+      padding: 6px;
+      border-radius: 50%;
+      display: flex;
+      z-index: 2;
+    }
+
+    .line {
+      width: 2px;
+      height: 100%;
+      background: #3b82f6;
+      margin-top: 5px;
+      flex-grow: 1;
+      min-height: 180px; /* ensures last item line also visible */
     }
   }
 `;
@@ -69,98 +63,187 @@ const StyledExperience = styled.div`
   margin-bottom: 5rem;
 
   h1 {
-    font-weight: 400;
     font-size: clamp(20px, 3vw, 30px);
     font-weight: bold;
   }
-  h2 {
-    margin: 0 0 15px 4px;
-    font-weight: 400;
 
-    font-size: clamp(14px, 4vw, 20px);
-    @media (max-width: 480px) {
-      margin: 0 0 7px 2px;
-    }
+  h2 {
+    margin: 0 0 10px 4px;
+    font-size: clamp(14px, 4vw, 18px);
   }
-  p {
-    max-width: 800px;
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 10px;
   }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
   .tag {
     margin: 4px;
   }
+
+  .bullet {
+    color: #2dd4bf;
+    margin-right: 6px;
+  }
 `;
 
-const infosysTech = [
-  "React Js",
-  "Bootstrap",
-  "Node Js",
-  "PostgreSQL",
-  "Jest/RTL",
+const experiences = [
+  {
+    company: "Accenture",
+    role: "Packaged App Development Analyst",
+    location: "Chennai, Tamilnadu",
+    period: "September 2024 - Present",
+    description: [
+      "Collaborating across multiple cross-functional teams to modernize and stabilize micro-frontend based architecture",
+      "Migration from React 16 to React 18.2, ensuring performance improvements and backward compatibility",
+      "Migrated legacy class-based components to functional components using React Hooks across 32 repositories",
+      "Converted unit tests from Enzyme to Jest and React Testing Library (RTL)",
+      "Introduced unit test coverage from 0%, writing test cases to meet SonarQube quality gate (60% coverage)",
+    ],
+    techStack: [
+      "ReactJS",
+      "TypeScript",
+      "PostgreSQL",
+      "MaterialUI",
+      "Jest",
+      "RTL",
+    ],
+  },
+  {
+    company: "Infosys Limited",
+    role: "Associate Consultant",
+    location: "Chennai, Tamilnadu",
+    period: "March 2022 - September 2024",
+    description: [
+      "Developed frontend applications using React.js and TypeScript with Bootstrap and MaterialUI",
+      "Implemented unit testing with React Testing Library (RTL) and Jest to ensure code quality",
+      "Conducted code analysis using SonarQube, improving code coverage up to 85%",
+      "Built RESTful APIs with Node.js for seamless data interaction",
+      "Managed database operations with PostgreSQL using Knex and Objection.js",
+    ],
+    techStack: [
+      "ReactJS",
+      "NodeJS",
+      "TypeScript",
+      "PostgreSQL",
+      "MaterialUI",
+      "Jest",
+    ],
+  },
+  {
+    company: "Kloudone Pvt Ltd",
+    role: "Software Developer",
+    location: "Chennai, Tamilnadu",
+    period: "October 2020 - March 2022",
+    description: [
+      "Developed and maintained web applications using React.js, JavaScript, and Ant Design",
+      "Built feature assessment summary with quiz creation, grading, and custom reports on training metrics",
+      "Implemented Single Sign-On (SSO) using Keycloak for secure authentication",
+      "Created easy access, customized and automated reporting systems",
+    ],
+    techStack: ["ReactJS", "JavaScript", "Ant Design", "Keycloak", "Figma"],
+  },
 ];
-
-const kloudOneTech = ["React Js", "Ant Design", "Gatsby", "Keycloak"];
 
 const Experience = () => {
   const theme = useTheme();
+
   return (
     <StyledExpSection id="experience">
-      <h1 className="heading">Where I’ve Worked</h1>
-      <StyledExperience>
-        <div className="exp-length"></div>
-        <div>
-          <h1>Associate Consultant</h1>
-          <h2
-            style={{
-              color: theme.palette.mode === "dark" ? "#c7c7c7" : "#696969",
-            }}
-          >
-            Infosys (Mar-2022 -Present)
-          </h2>
-          <p>
-            Collaborated with the development team to develop a responsive web
-            application using React Js and Bootstrap. Contributed significantly
-            by implementing unit testcases using Jest/RTL for ensuring code
-            reliability.
-          </p>
-          <p>
-            Developed REST API and configured a cron job in NodeJs to automate
-            the periodic synchorization of data.
-          </p>
-          <Stack direction="row" spacing={1} style={{ flexWrap: "wrap" }}>
-            {infosysTech.map((tech) => (
-              <Chip label={tech} color="primary" size="small" className="tag" />
+      <h1 className="heading">
+        Where I’ve &nbsp; <span>Worked</span>
+      </h1>
+
+      {experiences.map((exp, index) => (
+        <StyledExperience key={index}>
+          <div className="exp-length">
+            <div className="icon">
+              <BusinessIcon style={{ color: "#fff", fontSize: 16 }} />
+            </div>
+            <div className="line"></div>
+          </div>
+
+          <div>
+            <div>
+              <h2
+                style={{
+                  margin: 0,
+                  fontSize: "23px",
+                  fontWeight: 600,
+                }}
+              >
+                {exp.company}
+              </h2>
+
+              <div
+                style={{
+                  color: "#3b82f6",
+                  fontSize: "19px",
+                  fontWeight: 500,
+                  marginTop: "2px",
+                }}
+              >
+                {exp.role}
+              </div>
+            </div>
+
+            {/* Calendar */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+                margin: "10px 0",
+                color: theme.palette.mode === "dark" ? "#94a3b8" : "#6b7280",
+                fontSize: "18px",
+              }}
+              data-aos="flip-up"
+            >
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "5px" }}
+              >
+                <CalendarMonthIcon fontSize="small" />
+                <span>{exp.period}</span>
+              </div>
+
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "5px" }}
+              >
+                <LocationOnIcon fontSize="small" />
+                <span>{exp.location}</span>
+              </div>
+            </div>
+
+            {/* Description */}
+            {exp.description.map((point, i) => (
+              <p key={i} data-aos="fade-up">
+                <span className="bullet">▸</span>
+                {point}
+              </p>
             ))}
-          </Stack>
-        </div>
-      </StyledExperience>
-      <StyledExperience>
-        <div className="exp-length"></div>
-        <div>
-          <h1>Software developer UX </h1>
-          <h2
-            style={{
-              color: theme.palette.mode === "dark" ? "#c7c7c7" : "#696969",
-            }}
-          >
-            Kloudone technology (Oct 2020 - Mar 2022)
-          </h2>
-          <p>
-            Developed and maintained code for in-house Learning Management
-            system product (KloudLearn) with technologies including ReactJs and
-            AntDesign.
-          </p>
-          <p>
-            Manually tested sites in various browsers and mobile devices to
-            ensure cross-browser compatibility and responsiveness.
-          </p>
-          <Stack direction="row" spacing={1} style={{ flexWrap: "wrap" }}>
-            {kloudOneTech.map((tech) => (
-              <Chip label={tech} color="primary" size="small" className="tag" />
-            ))}
-          </Stack>
-        </div>
-      </StyledExperience>
+
+            {/* Tech */}
+            <Stack direction="row" spacing={1} flexWrap="wrap">
+              {exp.techStack.map((tech) => (
+                <Chip
+                  key={tech}
+                  label={tech}
+                  size="small"
+                  color="primary"
+                  className="tag"
+                />
+              ))}
+            </Stack>
+          </div>
+        </StyledExperience>
+      ))}
     </StyledExpSection>
   );
 };
