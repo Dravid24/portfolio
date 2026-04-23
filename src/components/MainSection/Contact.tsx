@@ -1,224 +1,316 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { TextField, Button, useTheme, Alert } from "@mui/material";
+import {
+  TextField,
+  Button,
+  useTheme,
+  IconButton,
+  Typography,
+  Box,
+} from "@mui/material";
 import { Formik } from "formik";
 import emailjs from "@emailjs/browser";
 
-const StyledContectWrapper = styled.div`
-  max-width: 1080px;
-  margin-bottom: 50px;
-  .heading {
-    display: flex;
-    align-items: center;
-    padding: 70px 0 20px;
-    width: 100%;
-    font-size: clamp(26px, 5vw, 36px);
-    white-space: nowrap;
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import SendIcon from "@mui/icons-material/Send";
 
-    &:after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 2px;
-      margin-left: 20px;
-      background: #969493;
-      @media (max-width: 1080px) {
-        width: 100%;
+const Section = styled.section`
+  max-width: 1280px;
+  margin: auto;
+  padding: 80px 0;
+
+  .heading {
+    margin-bottom: 70px;
+
+    h1 {
+      display: flex;
+      align-items: center;
+      font-size: clamp(26px, 5vw, 36px);
+      white-space: nowrap;
+      span {
+        background: linear-gradient(to right, #3b82f6, #2dd4bf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
-      @media (max-width: 768px) {
+      &:after {
+        content: "";
+        display: block;
         width: 100%;
-      }
-      @media (max-width: 600px) {
-        margin-left: 10px;
+        height: 2px;
+        margin-left: 20px;
+        background: #969493;
       }
     }
-  }
-  p {
-    margin: 20px auto;
-    margin-bottom: 40px;
-    max-width: 540px;
-    font-size: clamp(14px, 5vw, 20px);
+
+    p {
+      font-size: clamp(13px, 5vw, 20px);
+      margin-top: 10px;
+      color: #94a3b8;
+    }
   }
 
-  .message-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 650px;
-    margin: auto;
-  }
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
 
-  .input-box {
-    margin: 10px 0;
-  }
-
-  .form-btn {
-    margin-top: 10px;
-    width: fit-content;
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
   }
 `;
 
-type MessageFormProps = {
-  email: string;
-  fullname: string;
-  message: string;
-};
+const Card = styled(Box)`
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 25px;
+`;
+
+const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+
+  .icon {
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3b82f6, #2dd4bf);
+    color: white;
+    display: flex;
+  }
+
+  .label {
+    font-size: 16px;
+    color: #94a3b8;
+  }
+
+  .value {
+    font-size: 18px;
+    font-weight: 500;
+  }
+`;
 
 const Contact = () => {
   const theme = useTheme();
-  const dark = theme.palette.mode === "dark";
-  const [loading, setLoading] = useState(false);
-  const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const isDark = theme.palette.mode === "dark";
 
-  const submitForm = (e: React.FormEvent<HTMLFormElement>, resetForm: any) => {
+  const [loading, setLoading] = useState(false);
+
+  const submitForm = (e: any, resetForm: any) => {
     setLoading(true);
     emailjs
       .sendForm(
         "service_vtk34se",
         "template_0kgvdop",
         e.currentTarget,
-        "mCAQ6m3v4-cxm-FkZ"
+        "mCAQ6m3v4-cxm-FkZ",
       )
-      .then(
-        () => {
-          setLoading(false);
-          resetForm();
-          setSuccessMsg("Email sent successfully");
-          setTimeout(() => {
-            setSuccessMsg(null);
-          }, 3000);
-        },
-        () => {
-          setLoading(false);
-          setErrorMsg("Something went wrong");
-          setTimeout(() => {
-            setErrorMsg(null);
-          }, 3000);
-        }
-      );
+      .then(() => {
+        setLoading(false);
+        resetForm();
+        alert("Message sent successfully ✅");
+      })
+      .catch(() => {
+        setLoading(false);
+        alert("Something went wrong ❌");
+      });
   };
 
-  const validate = (values: MessageFormProps) => {
-    const errors: MessageFormProps = {
-      email: "",
-      fullname: "",
-      message: "",
-    };
-    if (!values.fullname) {
-      errors.fullname = "Name is required";
-    } else if (!values.email) {
-      errors.email = "Email is required";
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-      errors.email = "Enter valid email address";
-    } else if (!values.message) {
-      errors.message = "Message is required";
+  const validate = (values: any) => {
+    const errors: any = {};
+    if (!values.fullname) errors.fullname = "Name is required";
+    if (!values.email) errors.email = "Email is required";
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      errors.email = "Invalid email";
     }
+    if (!values.message) errors.message = "Message is required";
     return errors;
   };
 
   return (
-    <StyledContectWrapper id="contact">
-      <h1 className="heading">Get In Touch</h1>
-      <div style={{ color: dark ? "#ccd6f6" : "#696969", textAlign: "center" }}>
+    <Section id="contact">
+      <div className="heading">
+        <h1>
+          Let's&nbsp;<span>Connect</span>
+        </h1>
         <p>
-          My inbox is always open. Whether you have a question or just want to
-          say hi, I’ll try my best to get back to you!
+          I'm always open to discussing new projects, creative ideas, or
+          opportunities to be part of your vision.
         </p>
       </div>
-      <Formik
-        initialValues={{
-          email: "",
-          fullname: "",
-          message: "",
-        }}
-        validate={validate}
-        onSubmit={(values, actions) =>
-          actions.resetForm({
-            values: {
+
+      <div className="wrapper">
+        {/* LEFT SIDE */}
+        <div>
+          <Typography
+            variant="h6"
+            mb={2}
+            sx={{ fontSize: "23px", fontWeight: 600 }}
+          >
+            Contact Information
+          </Typography>
+
+          <InfoItem>
+            <div className="icon">
+              <EmailIcon />
+            </div>
+            <div>
+              <div className="label">Email</div>
+              <div className="value">dravidmani1998@gmail.com</div>
+            </div>
+          </InfoItem>
+
+          <InfoItem>
+            <div className="icon">
+              <PhoneIcon />
+            </div>
+            <div>
+              <div className="label">Phone</div>
+              <div className="value">+91 8667377046</div>
+            </div>
+          </InfoItem>
+
+          <InfoItem>
+            <div className="icon">
+              <LocationOnIcon />
+            </div>
+            <div>
+              <div className="label">Location</div>
+              <div className="value">Chennai, Tamilnadu</div>
+            </div>
+          </InfoItem>
+
+          {/* Social */}
+          {/* <Typography variant="h6" mt={4} mb={2}>
+            Follow Me
+          </Typography>
+
+          <Box display="flex" gap={2}>
+            <IconButton
+              onClick={() =>
+                window.open("https://github.com/Dravid24", "_blank")
+              }
+              sx={{
+                border: "1px solid #1e293b",
+                borderRadius: "10px",
+                color: "#cbd5f5",
+              }}
+            >
+              <GitHubIcon />
+            </IconButton>
+
+            <IconButton
+              onClick={() => window.open("https://linkedin.com", "_blank")}
+              sx={{
+                border: "1px solid #1e293b",
+                borderRadius: "10px",
+                color: "#cbd5f5",
+              }}
+            >
+              <LinkedInIcon />
+            </IconButton>
+          </Box> */}
+        </div>
+
+        {/* RIGHT SIDE FORM */}
+        <Card
+          sx={{
+            border: isDark ? "1px solid #1e293b" : "1px solid #E0E6EE",
+          }}
+        >
+          <Typography
+            variant="h6"
+            mb={2}
+            sx={{ fontSize: "23px", fontWeight: 600 }}
+          >
+            Send a Message
+          </Typography>
+
+          <Formik
+            initialValues={{
               email: "",
               fullname: "",
               message: "",
-            },
-          })
-        }
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-          errors,
-          touched,
-          resetForm,
-        }) => (
-          <form
-            className="message-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (values.email && values.fullname && values.message) {
-                submitForm(e, resetForm);
-                handleSubmit();
-              }
             }}
+            validate={validate}
+            onSubmit={() => {}}
           >
-            <TextField
-              error={touched.fullname && errors.fullname ? true : false}
-              className="input-box"
-              label="Name"
-              variant="outlined"
-              name="fullname"
-              value={values.fullname}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <TextField
-              error={touched.email && errors.email ? true : false}
-              className="input-box"
-              label="Email"
-              variant="outlined"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <TextField
-              error={touched.message && errors.message ? true : false}
-              className="input-box"
-              label="Message"
-              variant="outlined"
-              multiline
-              rows={4}
-              name="message"
-              value={values.message}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {touched.fullname && errors.fullname && (
-              <Alert severity="error">{errors.fullname}</Alert>
+            {({
+              handleSubmit,
+              handleChange,
+              values,
+              errors,
+              touched,
+              resetForm,
+            }) => (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  submitForm(e, resetForm);
+                  handleSubmit();
+                }}
+              >
+                <TextField
+                  fullWidth
+                  label="Your Name"
+                  name="fullname"
+                  value={values.fullname}
+                  onChange={handleChange}
+                  error={touched.fullname && !!errors.fullname}
+                  helperText={touched.fullname && errors.fullname}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  label="Your Email"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  error={touched.email && !!errors.email}
+                  helperText={touched.email && errors.email}
+                  margin="normal"
+                />
+
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={4}
+                  label="Your Message"
+                  name="message"
+                  value={values.message}
+                  onChange={handleChange}
+                  error={touched.message && !!errors.message}
+                  helperText={touched.message && errors.message}
+                  margin="normal"
+                />
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  startIcon={<SendIcon />}
+                  disabled={loading}
+                  sx={{
+                    mt: 2,
+                    textTransform: "none",
+                    background: "linear-gradient(135deg, #3b82f6, #2dd4bf)",
+                  }}
+                >
+                  Send Message
+                </Button>
+              </form>
             )}
-            {touched.email && errors.email && (
-              <Alert severity="error">{errors.email}</Alert>
-            )}
-            {touched.message && errors.message && (
-              <Alert severity="error">{errors.message}</Alert>
-            )}
-            {successMsg && <Alert severity="success">{successMsg}</Alert>}
-            {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
-            <Button
-              variant="contained"
-              size="large"
-              className="form-btn"
-              type="submit"
-              disabled={loading}
-            >
-              Send Message
-            </Button>
-          </form>
-        )}
-      </Formik>
-    </StyledContectWrapper>
+          </Formik>
+        </Card>
+      </div>
+    </Section>
   );
 };
 

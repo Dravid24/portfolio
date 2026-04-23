@@ -115,7 +115,10 @@ const Header = () => {
           <Button
             variant="contained"
             size="large"
-            sx={{ textTransform: "none" }}
+            sx={{
+              textTransform: "none",
+              background: "linear-gradient(135deg, #3b82f6, #2dd4bf)",
+            }}
             startIcon={<Code2 />}
           >
             View My Work

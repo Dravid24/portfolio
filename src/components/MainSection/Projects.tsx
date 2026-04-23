@@ -1,176 +1,256 @@
 import styled from "styled-components";
-import Typography from "@mui/material/Typography";
 import {
-  CardActionArea,
-  CardActions,
-  Card,
-  CardContent,
-  CardMedia,
+  Box,
+  Chip,
+  Typography,
+  IconButton,
   Tooltip,
   useTheme,
+  Button,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import SearchIcon from "@mui/icons-material/Search";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
+import CloudQueueIcon from "@mui/icons-material/CloudQueue";
+
 import { projectList } from "../../common";
 
-const StyledProjectsWrapper = styled.div`
-  max-width: 1080px;
-  margin-bottom: 50px;
+const Section = styled.section`
+  max-width: 1280px;
+  margin: auto;
+  padding-bottom: 80px;
+
   .heading {
-    display: flex;
-    align-items: center;
-    padding: 70px 0 80px;
-    width: 100%;
-    font-size: clamp(26px, 5vw, 36px);
-    white-space: nowrap;
+    margin-bottom: 70px;
 
-    &:after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 2px;
-      margin-left: 20px;
-      background: #969493;
-      @media (max-width: 1080px) {
-        width: 100%;
+    h1 {
+      display: flex;
+      align-items: center;
+      font-size: clamp(26px, 5vw, 36px);
+      white-space: nowrap;
+      span {
+        background: linear-gradient(to right, #3b82f6, #2dd4bf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
-      @media (max-width: 768px) {
+      &:after {
+        content: "";
+        display: block;
         width: 100%;
-      }
-      @media (max-width: 600px) {
-        margin-left: 10px;
+        height: 2px;
+        margin-left: 20px;
+        background: #969493;
       }
     }
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 20px;
-    position: relative;
-    margin-top: 50px;
-    list-style-type: none;
-    @media (max-width: 1080px) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-  }
-`;
-
-const StyledProject = styled.li`
-  position: relative;
-  cursor: default;
-  transition: var(--transition);
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-
-  .description {
-    display: -webkit-box;
-
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .tag {
-    margin-left: 16px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
 
     p {
-      margin: 5px 15px 5px 0px;
-      font-weight: bold;
-      background: -webkit-linear-gradient(left, #3b82f6, #2dd4bf);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: clamp(13px, 5vw, 20px);
+      margin-top: 10px;
+      color: #94a3b8;
     }
   }
-  .project-action {
-    padding: 0px 16px;
-    justify-content: end;
-
-    div {
-      margin: 0px;
-    }
-    svg {
-      margin: 10px;
-      cursor: pointer;
-
-      &:hover {
-        color: #3b82f6;
-      }
-    }
-
-    a {
-      margin: 0px;
-    }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
   }
 `;
+
+const Card = styled(Box)`
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 0.3s;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+
+  .header {
+    padding: 20px;
+    position: relative;
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+    font-weight: 600;
+    font-size: 23px;
+  }
+
+  .actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .desc {
+    font-size: 17px;
+    margin-bottom: 15px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+`;
+
+const FadeIcon = styled(Box)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const getGradient = (index: number) => {
+  // "linear-gradient(135deg, #689ff7, #3972eb)", // blue
+  //   "linear-gradient(135deg, #14b8a6, #0d9488)", // teal
+  //   "linear-gradient(135deg, #22c55e, #16a34a)", // green
+  //   "linear-gradient(135deg, #f97316, #ea580c)", // orange
+  //   "linear-gradient(135deg, #eab308, #ca8a04)", // yellow
+  //   "linear-gradient(135deg, #ec4899, #db2777)", // pink
+  const gradients = [
+    "linear-gradient(135deg, #689ff7, #3972eb)", // blue
+    "linear-gradient(135deg, #36c1b1, #239c92)", // teal
+    "linear-gradient(135deg, #42c371, #2aa457)", // green
+    "linear-gradient(135deg, #f78533, #e36725)", // orange
+    "linear-gradient(135deg, #ebbd33, #c39126)", // yellow
+    "linear-gradient(135deg, #eb69aa, #d94789)", // pink
+  ];
+  return gradients[index % gradients.length];
+};
+
+const getIcon = (title: string) => {
+  if (title.toLowerCase().includes("chat"))
+    return <ChatBubbleOutlineIcon sx={{ fontSize: 75, opacity: 0.2 }} />;
+  if (title.toLowerCase().includes("github"))
+    return <SearchIcon sx={{ fontSize: 75, opacity: 0.2 }} />;
+  if (title.toLowerCase().includes("blog"))
+    return <StickyNote2Icon sx={{ fontSize: 75, opacity: 0.2 }} />;
+  if (title.toLowerCase().includes("weather"))
+    return <CloudQueueIcon sx={{ fontSize: 75, opacity: 0.2 }} />;
+  return <PlayArrowIcon sx={{ fontSize: 75, opacity: 0.2 }} />;
+};
+
 const Projects = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
 
-  const openInNewTab = (url: string) => {
+  const open = (url: string) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
+
   return (
-    <StyledProjectsWrapper id="projects">
-      <h1 className="heading">Some Things I’ve Built</h1>
-      <ul className="projects-grid">
-        {projectList?.map((project, i) => (
-          <StyledProject key={i}>
-            <Card
-              sx={{ maxWidth: 300 }}
+    <Section id="projects">
+      <div className="heading">
+        <h1>
+          Some Things I've&nbsp;<span>Built</span>
+        </h1>
+        {/* <p>
+          Here are some of my personal projects that showcase my skills in
+          building <br /> full-stack applications with modern technologies.
+        </p> */}
+      </div>
+
+      <div className="grid">
+        {projectList.map((project, index) => (
+          <Card
+            key={index}
+            sx={{
+              border: isDark ? "1px solid #1e293b" : "1px solid #E0E6EE",
+              background: isDark
+                ? "linear-gradient(135deg, #020617, #0f172a)"
+                : "linear-gradient(135deg, #ececec, #Fafafa)",
+            }}
+          >
+            {/* HEADER */}
+            <div
+              className="header"
               style={{
-                background:
-                  theme.palette.mode === "dark" ? "#112240" : "#fcfcfc",
+                background: getGradient(index),
+                color: "#fff",
+                height: "200px",
               }}
             >
-              <CardActionArea style={{ cursor: "default" }}>
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={project.coverImg}
-                  alt={project.title}
-                  className="card-img"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {project.title}
-                  </Typography>
-                  <Tooltip title={project.description} placement="top">
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      className="description"
-                    >
-                      {project.description}
-                    </Typography>
-                  </Tooltip>
-                </CardContent>
-                <div className="tag">
-                  {project?.tech.map((tech) => {
-                    return <p>{tech}</p>;
-                  })}
-                </div>
-              </CardActionArea>
-              <CardActions className="project-action">
-                <Tooltip title="Github" placement="top">
-                  <div onClick={() => openInNewTab(project.sourceLink)}>
-                    <GitHubIcon />
-                  </div>
+              {/* Icons */}
+              <div className="actions">
+                <Tooltip title="GitHub">
+                  <IconButton
+                    size="small"
+                    onClick={() => open(project.sourceLink)}
+                    sx={{ color: "#fff" }}
+                  >
+                    <GitHubIcon fontSize="medium" />
+                  </IconButton>
                 </Tooltip>
-                <Tooltip title="Demo" placement="top">
-                  <div onClick={() => openInNewTab(project.demoLink)}>
-                    <OndemandVideoIcon />
-                  </div>
+
+                <Tooltip title="Live Demo">
+                  <IconButton
+                    size="small"
+                    onClick={() => open(project.demoLink)}
+                    sx={{ color: "#fff" }}
+                  >
+                    <OpenInNewIcon fontSize="medium" />
+                  </IconButton>
                 </Tooltip>
-              </CardActions>
-            </Card>
-          </StyledProject>
+              </div>
+
+              {/* Faded Icon */}
+              <FadeIcon>{getIcon(project.title)}</FadeIcon>
+
+              {/* Title */}
+              {project.title}
+            </div>
+
+            {/* CONTENT */}
+            <div className="content">
+              <Typography
+                className="desc"
+                style={{ color: isDark ? "#94a3b8" : "#696969" }}
+              >
+                {project.description}
+              </Typography>
+
+              {/* Tech */}
+              <div className="chips">
+                {project.tech.map((tech) => (
+                  <Chip
+                    key={tech}
+                    label={tech}
+                    size="small"
+                    sx={{
+                      background: isDark ? "#020617" : "#e2e8f0",
+                      color: isDark ? "#cbd5f5" : "#1e293b",
+                      borderRadius: "8px",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </Card>
         ))}
-      </ul>
-    </StyledProjectsWrapper>
+      </div>
+
+      {/* View More Button */}
+      <Box textAlign="center" mt={5}>
+        <Button
+          variant="outlined"
+          size="large"
+          onClick={() => window.open("https://github.com/Dravid24", "_blank")}
+          sx={{ textTransform: "none" }}
+          startIcon={<GitHubIcon />}
+        >
+          View More on GitHub
+        </Button>
+      </Box>
+    </Section>
   );
 };
 
